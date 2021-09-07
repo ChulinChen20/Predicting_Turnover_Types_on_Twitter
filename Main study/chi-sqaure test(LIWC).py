@@ -6,7 +6,7 @@ from sklearn.feature_selection import chi2
 from pylab import barh,plot,yticks,show,xlabel,figure
 
 # Get connections to the databases
-path1 = '//Users//chulinchen//Documents//turnover - twitter analysis//data//Round 2 Data//LIWC2015 Results (Clean 2Class Subjects(-stay)).db'
+path1 = 'all_data.db'
 db = sqlite3.connect(path1)
 
 # Get the contents of a table
@@ -20,11 +20,11 @@ cols = data.columns.tolist()
 print(cols)
 
 
-x_train = data.iloc[0:12826, 1:6]  # original: [0:18089, 1:9]
+x_train = data.iloc[0:12826, 1:6]  
 print(x_train.head())
-y_train = data.iloc[0:12826, 0]  # [0:18089, 0]
-x_test = data.iloc[12826:, 1:6]  # [18089:25842, 1:9]
-y_test = data.iloc[12826:, 0]  # [18089:25842, 0]
+y_train = data.iloc[0:12826, 0]  
+x_test = data.iloc[12826:, 1:6]  
+y_test = data.iloc[12826:, 0]  
 
 # Standaradization: to avoid bias toward a certain feature
 sc = StandardScaler(with_mean=False)
