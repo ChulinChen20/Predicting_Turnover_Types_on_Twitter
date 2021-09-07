@@ -8,7 +8,7 @@ from pylab import barh,plot,yticks,show,grid,xlabel,figure
 from sklearn.externals import joblib
 
 # Get connections to the databases
-path1 = '//Users//chulinchen//Documents//turnover - twitter analysis//data//Quitters//Clean 2Class Subjects(-stay).db'
+path1 = 'all_data.db'
 db = sqlite3.connect(path1)
 
 # Get the contents of a table
@@ -21,7 +21,6 @@ pd.set_option('display.max_rows', 10000)
 LDA_matrix_df = joblib.load('Gensim LDA matrix_final(n=62)_whole.pkl')
 print(LDA_matrix_df)
 topics = LDA_matrix_df.columns.tolist()
-
 
 
 x_train = LDA_matrix_df[0:12826]
@@ -80,15 +79,15 @@ for bool, feature in zip(mask, topics):
 print(new_features)
 kbest_train_dataframe = pd.DataFrame(kbest_features_train, columns=new_features)
 
-# sort features with descending importance
+# create table of feature name, chi-squared values, and pvalues for kbest features
 names = x_train.columns.values[selector.get_support()]
 scores = selector.scores_[selector.get_support()]
 names_scores = list(zip(names, scores))
 ns_df = pd.DataFrame(data = names_scores, columns=['Feat_names', 'F_Scores'])
+
 #Sort the dataframe for better visualization
 ns_df_sorted = ns_df.sort_values(['F_Scores', 'Feat_names'], ascending = [False, True]).reset_index(drop=True)
 print(ns_df_sorted)
-
 
 # fit selector to testing data
 kbest_features_test = selector.transform(x_test_nor)
@@ -101,7 +100,6 @@ print(len(kbest_test_dataframe))
 names = np.array(new_features)
 # columns in diff orders, set sort=F to avoid error
 kbest_matrix = kbest_train_dataframe.append(kbest_test_dataframe, ignore_index=True, sort=False)
-
 print(len(kbest_matrix))
 
 # remove uninterpretable and not coherent topics
@@ -113,8 +111,7 @@ print(kbest_matrix.head())
 print(kbest_matrix.tail())
 
 #  automatically split the model file into pickled numpy array files if model size is large
-joblib.dump(kbest_matrix, '/Users/chulinchen/PycharmProjects/Turnover Project/Analysis/'
-                          'Kbest Topics Matrix(58-4)_Gensim(n=62).pkl')
+joblib.dump(kbest_matrix, 'Kbest Topics Matrix(58-4)_Gensim(n=62).pkl')
 
 
 # plot top features
