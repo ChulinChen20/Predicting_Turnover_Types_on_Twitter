@@ -1,6 +1,5 @@
 import pandas as pd
 import sqlite3
-import re
 from nltk.collocations import BigramCollocationFinder
 from nltk.collocations import BigramAssocMeasures
 from nltk.collocations import TrigramCollocationFinder
@@ -10,7 +9,7 @@ from nltk.collocations import QuadgramAssocMeasures
 import numpy as np
 
 # connect to db
-path = '//Users//chulinchen//Documents//turnover - twitter analysis//data//Round 2 Data//Training data.db'
+path = 'all_data.db'
 conn = sqlite3.connect(path, isolation_level = None)
 
 # read into pandas
@@ -19,6 +18,7 @@ pd.set_option('display.max_colwidth', -1)
 
 print(df.tweetText.head())
 
+# training data
 df = df.iloc[0:12827, :]
 
 tweet_list = df['tweetText'].tolist()
