@@ -28,7 +28,7 @@ print(Unigrams)
 print(len(Unigrams))
 
 # load bigrams
-b = np.load("//Users//chulinchen//Documents//turnover - twitter analysis//data//Round 2 Data//Bigrams(128).npz")
+b = np.load("Bigrams(128).npz")
 Bigrams = b['arr_0']
 Bigrams = Bigrams.astype(str)
 Bigrams = [' '.join(x) for x in Bigrams]
@@ -37,7 +37,7 @@ print(Bigrams)
 print(len(Bigrams))
 
 # load Trigrams
-c = np.load("//Users//chulinchen//Documents//turnover - twitter analysis//data//Round 2 Data//Trigrams(128).npz")
+c = np.load("Trigrams(128).npz")
 Trigrams = c['arr_0']
 Trigrams = Trigrams.astype(str)
 Trigrams = [' '.join(x) for x in Trigrams]
@@ -46,7 +46,7 @@ print(Trigrams)
 print(len(Trigrams))
 
 # load Quadgrams
-c = np.load("//Users//chulinchen//Documents//turnover - twitter analysis//data//Round 2 Data//Quadgrams(128).npz")
+c = np.load("Quadgrams(128).npz")
 Quadgrams = c['arr_0']
 Quadgrams = Quadgrams.astype(str)
 Quadgrams = [' '.join(x) for x in Quadgrams]
@@ -154,7 +154,7 @@ print(kbest_matrix.tail())
 print(len(kbest_matrix))
 
 #  save top n-grams
-engine = create_engine('sqlite:////Users//chulinchen//Documents//turnover - twitter analysis//4g_150608.db', echo=False)
+engine = create_engine('sqlite:////Users//path//4g_150608.db', echo=False)
 kbest_matrix.to_sql('ngrams', con=engine, if_exists='replace', index=False)
 engine.execute('SELECT * FROM ngrams').fetchall()
 joblib.dump(kbest_matrix, '4grams Kbest Matrix(50000) Dataframe.pkl')
