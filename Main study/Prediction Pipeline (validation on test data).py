@@ -14,7 +14,7 @@ from sklearn.compose import ColumnTransformer
 
 
 # Get connections to the databases
-path1 = '//Users//chulinchen//Documents//turnover - twitter analysis//data//Round 2 Data//LIWC2015 Results (Clean 2Class Subjects(-stay)).db'  # LIWC(Clean 2class Subjects).db'
+path1 = 'LIWC2015 Results.db'  
 db = sqlite3.connect(path1)
 
 # Get the contents of a table
